@@ -3,22 +3,25 @@
   require_once('../function/admin.php');
   $page_content->getSection('header');
 
-  if (isset($_POST['categorynane'])) {
+  $message = ' ';
+
+
+  if (isset($_POST['categorynane']) && $_POST['categorynane']!=NULL) {
 
     $category_name = $_POST['categorynane'];
     $query = "INSERT INTO category (category_name) VALUES ('$category_name') ";
     $search = "SELECT * FROM category WHERE category_name = '$category_name' ";
     $alredy_exist = $db->select($search);
     if ($alredy_exist) {
-      echo "This Category Already Exist";
+      $message = "This Category Already Exist";
     }
     else {
       $insert = $db->insert($query);
       if ($insert) {
-        echo "New Category Add Successfull";
+        $message = "New Category Added Successfull";
       }
       else {
-        echo "New Category Add Faild!";
+        $message = "New Category Add Faild!";
       }
     }
 
@@ -28,10 +31,15 @@
   if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     $query = "DELETE FROM `category` WHERE `category_id` = $id";
-    $result = $db->delete($query);
+    $delete = $db->delete($query);
+    if ($delete) {
+      $message = "Category Delete Successfull";
+      echo '<script>window.location.href ='.'"category.php";</script>';
+
+    }
   }
 
-
+echo $message;
  ?>
  <!-- Begin Page Content -->
  <div class="container-fluid">
@@ -51,7 +59,7 @@
               <div class="form-group row">
                 <label for="categorynane=" class="col-sm-4 col-form-label">Category Name</label>
                 <div class="col-sm-8">
-                  <input type="text" name="categorynane" class="form-control" id="categorynane" placeholder="please type new category name">
+                  <input type="text" name="categorynane" class="form-control" id="categorynane" placeholder="please type new category name" >
                 </div>
               </div>
               <div class="form-group text-right">

@@ -3,6 +3,9 @@
   require_once('../function/admin.php');
   $page_content->getSection('header');
 
+  $message = '';
+
+
   if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $query = "SELECT * FROM `category` WHERE `category_id` = $id";
@@ -16,7 +19,12 @@
   if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     $query = "DELETE FROM `category` WHERE `category_id` = $id";
-    $result = $db->delete($query);
+    $delete = $db->delete($query);
+    if ($delete) {
+      $message = "Category Delete Successfull";
+      echo '<script>window.location.href ='.'"category.php";</script>';
+
+    }
   }
 
 
@@ -28,15 +36,16 @@
     $search = "SELECT * FROM category WHERE category_name = '$category_name' ";
     $alredy_exist = $db->select($search);
     if ($alredy_exist) {
-      echo "This Category Already Exist";
+      $message = "This Category Already Exist";
     }
     else {
       $insert = $db->insert($query);
       if ($insert) {
-        echo " Category Update Successfull";
+        $message = '<script>alert("Category Update Successfull")</script>';
+        echo '<script>window.location.href ='.'"category.php";</script>';
       }
       else {
-        echo "Category Update Faild!";
+        $message = "Category Update Faild!";
       }
     }
 
@@ -44,6 +53,7 @@
 
 
   }
+  echo $message;
 
  ?>
  <!-- Begin Page Content -->

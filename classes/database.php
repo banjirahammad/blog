@@ -49,8 +49,7 @@
 
       $result = $this->conn->query($query) or die($this->conn->error.__LINE__);
       if ($result) {
-        return $result;
-      }
+        return $result;     }
       else {
         return FALSE;
       }

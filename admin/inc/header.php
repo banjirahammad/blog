@@ -65,6 +65,11 @@
            <i class="fas fa-fw fa-tachometer-alt"></i>
            <span>Category</span></a>
        </li>
+       <li class="nav-item">
+         <a class="nav-link" href="post.php">
+           <i class="fas fa-fw fa-tachometer-alt"></i>
+           <span>Post</span></a>
+       </li>
 
        <!-- Nav Item - Utilities Collapse Menu -->
        <li class="nav-item">
